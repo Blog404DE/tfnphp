@@ -1,4 +1,4 @@
-FROM amd64/php:8.1-cli-bullseye
+FROM amd64/php:7.4-cli-bullseye
 
 LABEL maintainer  "Jens Dutzi <jens.dutzi@tf-network.de>"
 
@@ -33,7 +33,8 @@ RUN apt-get update && \
         git \
         wget \
         unzip \
-        libbz2-dev
+        libbz2-dev \
+        libzip-dev
 
 #
 # Installation of NodeJS
@@ -69,7 +70,8 @@ RUN set -eux; \
         bz2 \
         opcache \
         calendar \
-        shmop
+        shmop \
+        zip
 
 # Memory Limit und Timezone PHP Setting
 RUN echo "memory_limit=-1" > $PHP_INI_DIR/conf.d/memory-limit.ini
@@ -88,12 +90,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
     composer selfupdate
 
 # Run composer -components and phpunit installation.
-RUN composer global require "phpunit/phpunit=*" --prefer-source --no-interaction --update-no-dev --no-ansi
-RUN composer global require "squizlabs/php_codesniffer=*" --prefer-source --no-interaction --update-no-dev --no-ansi
-RUN composer global require "phpmd/phpmd=*" --prefer-source --no-interaction --update-no-dev --no-ansi
-RUN composer global require "sebastian/phpcpd=*" --prefer-source --no-interaction --update-no-dev --no-ansi
-RUN composer global require "wapmorgan/php-deprecation-detector=*" --prefer-source --no-interaction --update-no-dev --no-ansi
-RUN composer global require "friendsofphp/php-cs-fixer=*" --prefer-source --no-interaction --update-no-dev --no-ansi
+RUN composer global require "phpunit/phpunit=*" "squizlabs/php_codesniffer=*" "phpmd/phpmd=*" "sebastian/phpcpd=*" \
+                            "wapmorgan/php-deprecation-detector=*"  "friendsofphp/php-cs-fixer=*" \
+                            --prefer-source --no-interaction --update-no-dev --no-ansi
 
 #
 # Installation: gulp
