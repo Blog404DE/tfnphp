@@ -14,7 +14,7 @@ on:
             - 'php-74'
             - 'php-81'
 
-# permissions are needed if pushing to ghcr.io
+# permissions are needed if pushing to ghcr.io (not used currently)
 permissions:
     packages:     write
 
@@ -44,12 +44,12 @@ jobs:
                     password: ${{ secrets.DOCKERHUB_TOKEN }}
             -
                 name: Docker meta
-                id: tfnphp # you'll use this in the next step
+                id: tfnphpci # you'll use this in the next step
                 uses: docker/metadata-action@v3
                 with:
                     # list of Docker images to use as base name for tags
                     images: |
-                        blog404de/tfnphptest
+                        blog404de/tfnphpci
                     # Docker tags based on the following events/attributes
                     tags: |
                         type=schedule
@@ -66,5 +66,5 @@ jobs:
                     context: .
                     platforms: linux/amd64,linux/386,linux/arm/v7,linux/arm64,linux/arm64v8
                     push: ${{ github.event_name != 'pull_request' }}
-                    tags: ${{ steps.tfnphp.outputs.tags }}
-                    labels: ${{ steps.tfnphp.outputs.labels }}
+                    tags: ${{ steps.tfnphpci.outputs.tags }}
+                    labels: ${{ steps.tfnphpci.outputs.labels }}
