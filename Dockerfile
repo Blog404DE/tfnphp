@@ -1,4 +1,4 @@
-FROM amd64/php:7.4-cli-bullseye
+FROM amd64/php:8.1-cli-bullseye
 
 LABEL maintainer  "Jens Dutzi <jens.dutzi@tf-network.de>"
 
