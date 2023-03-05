@@ -7,12 +7,14 @@ on:
         branches:
             - 'php-74'
             - 'php-81'
+            - 'php-82'
         tags:
             - 'v*.*.*'
     pull_request:
         branches:
             - 'php-74'
             - 'php-81'
+            - 'php-82'
 
 # permissions are needed if pushing to ghcr.io (not used currently)
 permissions:
