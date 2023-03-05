@@ -4,7 +4,7 @@ Dockerfiles for Gitlab-CE CI Integration based on Debian Bullseye. This Docker I
 
 ## Overview
 
-A set of images with different PHP-CLI Version 8.1.15 and different tools like PHPUnit, Composer, NodeJS, Gulp, etc. for automated testing web-applications. This images could be used with Gitlab-CE (and other CI-solutions). Different PHP Versions are stored inside specific git branches (php-74 and php-81).
+A set of images with different PHP-CLI Version 8.1.16 and different tools like PHPUnit, Composer, NodeJS, Gulp, etc. for automated testing web-applications. This images could be used with Gitlab-CE (and other CI-solutions). Different PHP Versions are stored inside specific git branches (php-82 and php-81).
 
 ## Included Software
 
@@ -21,7 +21,7 @@ bz2, calendar, Core, ctype, curl, date, dom, exif, fileinfo, filter, ftp, gd, ha
 
 #### NodeJS:
 
-- [NodeJS 16.x](https://nodejs.org/en/)
+- [NodeJS 18.x](https://nodejs.org/en/)
 - [gulp](https://gulpjs.com)
 
 ## Development

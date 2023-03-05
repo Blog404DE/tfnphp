@@ -1,4 +1,4 @@
-FROM amd64/php:7.4-cli-bullseye
+FROM amd64/php:8.1-cli-bullseye
 
 LABEL maintainer  "Jens Dutzi <jens.dutzi@tf-network.de>"
 
@@ -42,8 +42,8 @@ RUN apt-get update && \
 
 # adding NodeJS-Repository and install NodeJS
 RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo 'deb https://deb.nodesource.com/node_16.x bullseye main' > /etc/apt/sources.list.d/nodesource.list
-RUN echo 'deb-src https://deb.nodesource.com/node_16.x bullseye main' >> /etc/apt/sources.list.d/nodesource.list
+RUN echo 'deb https://deb.nodesource.com/node_18.x bullseye main' > /etc/apt/sources.list.d/nodesource.list
+RUN echo 'deb-src https://deb.nodesource.com/node_18.x bullseye main' >> /etc/apt/sources.list.d/nodesource.list
 
 RUN apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -o APT::Install-Suggests=0 -o APT::Install-Recommends=0 -y nodejs
@@ -120,17 +120,3 @@ RUN apt-get -yqq autoremove && \
 
 RUN composer clearcache
 RUN apt-get clean && rm -r /var/lib/apt/lists/*
-
-#
-# Debug: Display Version-Infos
-#
-
-RUN node --version && \
- 	gulp -v  && \
-    php --version  && \
-	composer --version  && \
-	phpunit --version  && \
-	phpcs --version  && \
-	phpcpd --version  && \
-	phpdd --version && \
-    php-cs-fixer --version
