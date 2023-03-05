@@ -99,10 +99,10 @@ RUN composer global require "phpunit/phpunit=*" "squizlabs/php_codesniffer=*" "p
 #
 
 # Allow unsafe-permissions for NPM (needed for arm-images)
-RUN npm config set unsafe-perm true
+#RUN npm config set unsafe-perm true
 
 # Run installation of gulp
-RUN npm install -g gulp
+RUN npm install --unsafe-perm=true -g gulp
 
 # Image cleanup
 RUN apt-get -yqq autoremove && \
