@@ -41,12 +41,12 @@ RUN apt-get update && \
 #
 
 # adding NodeJS-Repository and install NodeJS
-RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN echo 'deb https://deb.nodesource.com/node_18.x bullseye main' > /etc/apt/sources.list.d/nodesource.list
-RUN echo 'deb-src https://deb.nodesource.com/node_18.x bullseye main' >> /etc/apt/sources.list.d/nodesource.list
+#RUN curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+#RUN echo 'deb https://deb.nodesource.com/node_18.x bullseye main' > /etc/apt/sources.list.d/nodesource.list
+#RUN echo 'deb-src https://deb.nodesource.com/node_18.x bullseye main' >> /etc/apt/sources.list.d/nodesource.list
 
-RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -o APT::Install-Suggests=0 -o APT::Install-Recommends=0 -y nodejs
+#RUN apt-get update \
+#    && DEBIAN_FRONTEND=noninteractive apt-get install -o APT::Install-Suggests=0 -o APT::Install-Recommends=0 -y nodejs
 
 #
 # Configuration of PHP and adding some PHP Modules and Xdebug
@@ -83,6 +83,7 @@ RUN echo "date.timezone=Europe/Berlin" > $PHP_INI_DIR/conf.d/date_timezone.ini
 
 # Environmental Variables
 ENV COMPOSER_HOME /root/composer
+ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV PATH "/root/composer/vendor/bin:${PATH}"
 
 # Install composer
@@ -102,17 +103,13 @@ RUN composer global require "phpunit/phpunit=*" "squizlabs/php_codesniffer=*" "p
 #RUN npm config set unsafe-perm true
 
 # Run installation of gulp
-RUN npm install --unsafe-perm=true -g gulp
+#RUN npm install --unsafe-perm=true -g gulp
 
 # Image cleanup
 RUN apt-get -yqq autoremove && \
     apt-get -yqq clean && \
     rm -rf /var/lib/apt/lists/* /var/cache/* /tmp/* /var/tmp/*
 
-# Image cleanup
-RUN apt-get -yqq autoremove && \
-    apt-get -yqq clean && \
-    rm -rf /var/lib/apt/lists/* /var/cache/* /tmp/* /var/tmp/*
 
 #
 # Clean Up Image

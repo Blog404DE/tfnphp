@@ -5,6 +5,7 @@
 
 * Aktualisierung auf PHP 8.1.16
 * Build-Prozess aktualisiert
+* NodeJS und Gulp entfernt 
 
 2022-03-27, unstable
 ----------
