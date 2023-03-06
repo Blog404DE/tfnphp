@@ -53,8 +53,8 @@ RUN apt-get update && \
 #
 
 # PHP Install xdebug (pecl bei diversen Architekturen defekt)
-RUN pecl install xdebug && \
-        docker-php-ext-enable xdebug
+#RUN pecl install xdebug && \
+#        docker-php-ext-enable xdebug
 
 RUN set -eux; \
     docker-php-ext-configure gd --with-freetype --with-webp --with-jpeg \
@@ -68,7 +68,6 @@ RUN set -eux; \
         mysqli \
         exif \
         bz2 \
-        opcache \
         calendar \
         shmop \
         zip

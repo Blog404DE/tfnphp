@@ -4,12 +4,12 @@ Dockerfiles for Gitlab-CE CI Integration based on Debian Bullseye. This Docker I
 
 ## Overview
 
-A set of images with different PHP-CLI Version 8.1.16 and different tools like PHPUnit, Composer, etc. for automated testing web-applications. This images could be used with Gitlab-CE (and other CI-solutions). Different PHP Versions are stored inside specific git branches (php-82 and php-81).
+A set of images with different PHP-CLI Version 8.1.16 and different tools like Composer, etc. for automated testing web-applications. This images could be used with Gitlab-CE (and other CI-solutions). Different PHP Versions are stored inside specific git branches (php-82 and php-81).
 
 ## Included Software
 
 #### Compiled in PHP modules:
-bz2, calendar, Core, ctype, curl, date, dom, exif, fileinfo, filter, ftp, gd, hash, iconv, imap, intl, json, libxml, mbstring, mysqli, mysqlnd, opcache, openssl, pcre, PDO, pdo_mysql, pdo_sqlite, Phar, posix, readline, Reflection, session, shmop, SimpleXML, sodium, SPL, sqlite3, standard, tokenizer, xml, xmlreader, xmlwriter, zlib
+bz2, calendar, Core, ctype, curl, date, dom, exif, fileinfo, filter, ftp, gd, hash, iconv, imap, intl, json, libxml, mbstring, mysqli, mysqlnd, openssl, pcre, PDO, pdo_mysql, pdo_sqlite, Phar, posix, readline, Reflection, session, shmop, SimpleXML, sodium, SPL, sqlite3, standard, tokenizer, xml, xmlreader, xmlwriter, zlib
 
 #### PHP-Extensions:
 - [Xdebug](https://xdebug.org)
