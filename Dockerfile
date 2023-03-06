@@ -82,18 +82,18 @@ RUN echo "date.timezone=Europe/Berlin" > $PHP_INI_DIR/conf.d/date_timezone.ini
 #
 
 # Environmental Variables
-ENV COMPOSER_HOME /root/composer
-ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV PATH "/root/composer/vendor/bin:${PATH}"
+#ENV COMPOSER_HOME /root/composer
+#ENV COMPOSER_ALLOW_SUPERUSER=1
+#ENV PATH "/root/composer/vendor/bin:${PATH}"
 
 # Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    composer selfupdate
+#RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+#    composer selfupdate
 
 # Run composer -components and phpunit installation.
-RUN composer global require "phpunit/phpunit=*" "squizlabs/php_codesniffer=*" "phpmd/phpmd=*" "sebastian/phpcpd=*" \
-                            "wapmorgan/php-deprecation-detector=*"  "friendsofphp/php-cs-fixer=*" \
-                            --prefer-source --no-interaction --update-no-dev --no-ansi
+#RUN composer global require "phpunit/phpunit=*" "squizlabs/php_codesniffer=*" "phpmd/phpmd=*" "sebastian/phpcpd=*" \
+#                            "wapmorgan/php-deprecation-detector=*"  "friendsofphp/php-cs-fixer=*" \
+#                            --prefer-source --no-interaction --update-no-dev --no-ansi
 
 #
 # Installation: gulp
@@ -109,11 +109,3 @@ RUN composer global require "phpunit/phpunit=*" "squizlabs/php_codesniffer=*" "p
 RUN apt-get -yqq autoremove && \
     apt-get -yqq clean && \
     rm -rf /var/lib/apt/lists/* /var/cache/* /tmp/* /var/tmp/*
-
-
-#
-# Clean Up Image
-#
-
-RUN composer clearcache
-RUN apt-get clean && rm -r /var/lib/apt/lists/*
