@@ -1,9 +1,11 @@
 # Changelog
 
-2023-03-05, unstable
+2023-03-06, unstable
 ----------
 
-* Hinzufügen von PHP 8.2.3
+* Aktualisierung auf PHP 8.2.3
+* Build-Prozess aktualisiert
+* NodeJS und Gulp entfernt 
 
 2022-03-27, unstable
 ----------
