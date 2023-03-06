@@ -81,13 +81,13 @@ RUN echo "date.timezone=Europe/Berlin" > $PHP_INI_DIR/conf.d/date_timezone.ini
 #
 
 # Environmental Variables
-#ENV COMPOSER_HOME /root/composer
-#ENV COMPOSER_ALLOW_SUPERUSER=1
-#ENV PATH "/root/composer/vendor/bin:${PATH}"
+ENV COMPOSER_HOME /root/composer
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV PATH "/root/composer/vendor/bin:${PATH}"
 
 # Install composer
-#RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-#    composer selfupdate
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    composer selfupdate
 
 # Run composer -components and phpunit installation.
 #RUN composer global require "phpunit/phpunit=*" "squizlabs/php_codesniffer=*" "phpmd/phpmd=*" "sebastian/phpcpd=*" \
