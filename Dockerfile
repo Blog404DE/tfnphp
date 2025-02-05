@@ -1,4 +1,4 @@
-FROM amd64/php:8.2-cli-bullseye
+FROM --platform=$TARGETPLATFORM  php:8.2-cli-bullseye
 
 LABEL maintainer  "Jens Dutzi <jens.dutzi@tf-network.de>"
 
