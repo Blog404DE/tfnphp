@@ -21,4 +21,4 @@ This images are currently under heavy development. Features could be added and r
 --
 ##### License-Information:
 
-Copyright Jens Dutzi 2023 / Stand: 06.03.2023 13:29 / Dockerfiles are licensed under [MIT License](http://opensource.org/licenses/mit-license.php)
+Copyright Jens Dutzi 2023 / Stand: 05.02.2025 13:29 / Dockerfiles are licensed under [MIT License](http://opensource.org/licenses/mit-license.php)
