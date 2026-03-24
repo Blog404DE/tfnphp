@@ -15,7 +15,7 @@ bz2, calendar, Core, ctype, curl, date, dom, exif, fileinfo, filter, ftp, gd, ha
 - [Xdebug](https://xdebug.org)
 - [Composer](https://getcomposer.org)
 - [PHPUnit](https://phpunit.de)
-- [phpcs](https://github.com/squizlabs/PHP_CodeSniffer)
+- [phpcs](https://github.com/PHPCSStandards/PHP_CodeSniffer)
 - [phpmd](https://phpmd.org)
 - [phpcpd](https://github.com/sebastianbergmann/phpcpd)
 
