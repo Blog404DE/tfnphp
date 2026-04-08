@@ -10,12 +10,14 @@ on:
         branches:
             - 'php-81'
             - 'php-82'
+            - 'php-83'            
         tags:
             - 'v*.*.*'
     pull_request:
         branches:
             - 'php-81'
             - 'php-82'
+            - 'php-83'
 
 # permissions are needed if pushing to ghcr.io (not used currently)
 permissions:
