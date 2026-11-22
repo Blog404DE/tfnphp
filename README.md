@@ -19,11 +19,6 @@ bz2, calendar, Core, ctype, curl, date, dom, exif, fileinfo, filter, ftp, gd, ha
 - [phpmd](https://phpmd.org)
 - [phpcpd](https://github.com/sebastianbergmann/phpcpd)
 
-#### NodeJS:
-
-- [NodeJS 16.x](https://nodejs.org/en/)
-- [gulp](https://gulpjs.com)
-
 ## Development
 
 This images are currently under heavy development. Features could be added and removed on every update.
