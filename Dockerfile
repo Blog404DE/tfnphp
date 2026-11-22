@@ -1,9 +1,9 @@
 FROM php:8.3-cli-trixie
 
-LABEL maintainer  "Jens Dutzi <jens.dutzi@tf-network.de>"
+LABEL maintainer="Jens Dutzi <jens.dutzi@tf-network.de>"
 
 # define working-directory.
-ENV WORKDIR /home/workspace
+ENV WORKDIR=/home/workspace
 WORKDIR ${WORKDIR}
 VOLUME ${WORKDIR}
 
@@ -11,30 +11,28 @@ VOLUME ${WORKDIR}
 # installing needed extra-libs etc.
 #
 
+#
+# installing needed extra-libs etc.
+#
+
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -o APT::Install-Suggests=0 -o APT::Install-Recommends=0 -y \
-        apt-transport-https \
-        lsb-release \
-        gnupg \
-		libfreetype6-dev \
+    DEBIAN_FRONTEND=noninteractive apt-get upgrade -y && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+        -o APT::Install-Suggests=0 \
+        -o APT::Install-Recommends=0 \
+        libfreetype6-dev \
         libjpeg62-turbo-dev \
         libwebp-dev \
         libpng-dev \
-        libmcrypt-dev \
-        libpng-dev \
-        libssl-dev \
-        libcurl4-openssl-dev \
         libicu-dev \
-        libc-client-dev \
-        libkrb5-dev \
-        libxml2-dev \
         ssh \
         curl \
         git \
         wget \
         unzip \
         libbz2-dev \
-        libzip-dev
+        libzip-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 #
 # Installation of NodeJS
@@ -61,8 +59,6 @@ RUN set -eux; \
     && docker-php-ext-install gd \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl \
-	&& PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
-    && docker-php-ext-install imap \
 	&& docker-php-ext-install \
         pdo_mysql \
         mysqli \
@@ -81,9 +77,9 @@ RUN echo "date.timezone=Europe/Berlin" > $PHP_INI_DIR/conf.d/date_timezone.ini
 #
 
 # Environmental Variables
-ENV COMPOSER_HOME /root/composer
+ENV COMPOSER_HOME=/root/composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
-ENV PATH "/root/composer/vendor/bin:${PATH}"
+ENV PATH="/root/composer/vendor/bin:${PATH}"
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \

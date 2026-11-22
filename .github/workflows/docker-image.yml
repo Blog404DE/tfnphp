@@ -8,16 +8,14 @@ on:
     workflow_dispatch:
     push:
         branches:
-            - 'php-81'
-            - 'php-82'
-            - 'php-83'            
+            - 'php-83'
+            - 'php-84'                        
         tags:
             - 'v*.*.*'
     pull_request:
         branches:
-            - 'php-81'
-            - 'php-82'
             - 'php-83'
+            - 'php-84'
 
 # permissions are needed if pushing to ghcr.io (not used currently)
 permissions:
