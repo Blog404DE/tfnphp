@@ -1,0 +1,65 @@
+
+version: 2
+
+updates:
+  # ================================================
+  # GitHub Actions
+  # ================================================
+
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: master
+    schedule:
+      interval: weekly
+      day: monday
+      time: "08:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 3
+
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: php-83
+    schedule:
+      interval: weekly
+      day: monday
+      time: "08:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 3
+
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: php-84
+    schedule:
+      interval: weekly
+      day: monday
+      time: "08:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 3
+
+  # ================================================
+  # Docker - PHP 8.3
+  # ================================================
+
+  - package-ecosystem: docker
+    directory: /
+    target-branch: php-83
+    schedule:
+      interval: weekly
+      day: tuesday
+      time: "08:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 2
+
+  # ================================================
+  # Docker - PHP 8.4
+  # ================================================
+
+  - package-ecosystem: docker
+    directory: /
+    target-branch: php-84
+    schedule:
+      interval: weekly
+      day: tuesday
+      time: "08:00"
+      timezone: Europe/Berlin
+    open-pull-requests-limit: 2
