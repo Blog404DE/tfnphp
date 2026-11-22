@@ -1,15 +1,15 @@
 # tfnphp-dockerfiles
 
-Dockerfiles for Gitlab-CE CI Integration based on Debian Bullseye. This Docker Image contains multiple software for testing php and nodejs-code under different plattforms (linux/amd64, linux/386, linux/arm/v7, linux/arm64, arm64v8 - for the beginning)
+Dockerfiles for Gitlab-CE CI Integration based on Debian Bullseye. This Docker Image contains multiple software for testing php and nodejs-code under different plattforms (linux/amd64, linux/arm/v7, linux/arm64, arm64v8 - for the beginning)
 
 ## Overview
 
-A set of images with different PHP-CLI Version 8.2.3 and different tools like Composer, etc. for automated testing web-applications. This images could be used with Gitlab-CE (and other CI-solutions). Different PHP Versions are stored inside specific git branches (php-82 and php-81).
+A set of images with different PHP-CLI Version 8.4 and different tools like Composer, etc. for automated testing web-applications. This images could be used with Gitlab-CE (and other CI-solutions). Different PHP Versions are stored inside specific git branches (php-83 etc.).
 
 ## Included Software
 
 #### Compiled in PHP modules:
-bz2, calendar, Core, ctype, curl, date, dom, exif, fileinfo, filter, ftp, gd, hash, iconv, imap, intl, json, libxml, mbstring, mysqli, mysqlnd, openssl, pcre, PDO, pdo_mysql, pdo_sqlite, Phar, posix, readline, Reflection, session, shmop, SimpleXML, sodium, SPL, sqlite3, standard, tokenizer, xml, xmlreader, xmlwriter, zlib
+bz2, calendar, Core, ctype, curl, date, dom, exif, fileinfo, filter, ftp, gd, hash, iconv, intl, json, libxml, mbstring, mysqli, mysqlnd, openssl, pcre, PDO, pdo_mysql, pdo_sqlite, Phar, posix, readline, Reflection, session, shmop, SimpleXML, sodium, SPL, sqlite3, standard, tokenizer, xml, xmlreader, xmlwriter, zlib
 
 #### PHP-Extensions:
 - [Composer](https://getcomposer.org)
@@ -21,4 +21,4 @@ This images are currently under heavy development. Features could be added and r
 --
 ##### License-Information:
 
-Copyright Jens Dutzi 2023 / Stand: 06.03.2023 13:29 / Dockerfiles are licensed under [MIT License](http://opensource.org/licenses/mit-license.php)
+Copyright Jens Dutzi 2026 / Stand: 22.11.2026 18:05 / Dockerfiles are licensed under [MIT License](http://opensource.org/licenses/mit-license.php)

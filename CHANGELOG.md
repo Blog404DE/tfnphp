@@ -1,5 +1,11 @@
 # Changelog
 
+2025-11-22, stable
+----------
+* Automatisierung verbessert und PHP 8.4 Version angehoben
+
+# Changelog
+
 2023-03-06, unstable
 ----------
 
