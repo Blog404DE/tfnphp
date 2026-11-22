@@ -1,0 +1,195 @@
+
+name: Docker Hub Tag Cleanup
+
+on:
+  schedule:
+    - cron: '0 16 * * 0' # Jeden Sonntag um 16:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cleanup:
+    name: Cleanup Docker Hub Tags
+    runs-on: ubuntu-latest
+
+    # Sicherheitsprüfung: ausschließlich master darf bereinigen
+    if: github.ref == 'refs/heads/master'
+
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      DOCKERHUB_NAMESPACE: blog404de
+      DOCKERHUB_REPOSITORY: tfnphpci
+      DRY_RUN: ${{ vars.DOCKERHUB_CLEANUP_DRY_RUN || 'true' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: python -m pip install requests
+
+      - name: Cleanup Docker Hub tags
+        run: |
+          python <<'PY'
+          import os
+          import re
+          import sys
+          import requests
+          from urllib.parse import quote
+
+          USERNAME = os.environ["DOCKERHUB_USERNAME"]
+          PASSWORD = os.environ["DOCKERHUB_TOKEN"]
+          NAMESPACE = os.environ["DOCKERHUB_NAMESPACE"]
+          REPOSITORY = os.environ["DOCKERHUB_REPOSITORY"]
+          DRY_RUN = os.environ.get("DRY_RUN", "true").lower() == "true"
+
+          BASE_URL = "https://hub.docker.com"
+          API_URL = (
+              f"{BASE_URL}/v2/namespaces/{NAMESPACE}"
+              f"/repositories/{REPOSITORY}"
+          )
+
+          session = requests.Session()
+          session.headers.update({
+              "Accept": "application/json",
+              "Content-Type": "application/json",
+          })
+
+          if not USERNAME or not PASSWORD:
+              sys.exit("Docker Hub credentials are missing.")
+
+          print(f"Repository: {NAMESPACE}/{REPOSITORY}")
+          print(f"Dry run: {DRY_RUN}")
+
+          # Docker Hub access token beziehen
+          auth_response = session.post(
+              f"{BASE_URL}/v2/auth/token",
+              json={
+                  "identifier": USERNAME,
+                  "secret": PASSWORD,
+              },
+              timeout=30,
+          )
+          auth_response.raise_for_status()
+
+          access_token = auth_response.json().get("access_token")
+          if not access_token:
+              sys.exit("Could not obtain Docker Hub access token.")
+
+          session.headers["Authorization"] = f"Bearer {access_token}"
+
+          # Alle Tags inklusive Pagination laden
+          tags = []
+          url = f"{API_URL}/tags?page_size=100"
+
+          while url:
+              response = session.get(url, timeout=30)
+              response.raise_for_status()
+
+              data = response.json()
+              tags.extend(data.get("results", []))
+              url = data.get("next")
+
+          print(f"Found {len(tags)} tags.")
+
+          # Feste Tags und Aliase grundsätzlich schützen
+          protected_tags = {
+              "8",
+              "8.3",
+              "8.4",
+              "php-83",
+              "php-84",
+              "nightly",
+              "latest",
+          }
+
+          # PHP-Patch-Versionen getrennt für 8.3 und 8.4 behandeln
+          version_pattern = re.compile(r"^8\.(3|4)\.(\d+)$")
+
+          versions = {
+              "3": [],
+              "4": [],
+          }
+
+          sha_tags = []
+
+          for tag in tags:
+              name = tag.get("name", "")
+
+              if name in protected_tags:
+                  continue
+
+              match = version_pattern.match(name)
+              if match:
+                  minor = match.group(1)
+                  patch = int(match.group(2))
+                  versions[minor].append((patch, name))
+                  continue
+
+              if name.startswith("sha-"):
+                  sha_tags.append(tag)
+
+          # Die jeweils zwei neuesten PHP-Patch-Versionen behalten
+          delete_tags = []
+
+          for minor, entries in versions.items():
+              entries.sort(key=lambda item: item[0], reverse=True)
+
+              keep = entries[:2]
+              remove = entries[2:]
+
+              print(f"\nPHP 8.{minor}:")
+              print("  Keep: " + ", ".join(name for _, name in keep))
+
+              for _, name in remove:
+                  delete_tags.append(name)
+
+          # Die zwei zuletzt aktualisierten SHA-Tags behalten
+          sha_tags.sort(
+              key=lambda tag: tag.get("last_updated") or "",
+              reverse=True,
+          )
+
+          keep_sha = sha_tags[:2]
+          remove_sha = sha_tags[2:]
+
+          print("\nSHA tags:")
+          print("  Keep: " + ", ".join(
+              tag["name"] for tag in keep_sha
+          ))
+
+          for tag in remove_sha:
+              delete_tags.append(tag["name"])
+
+          # Tags löschen bzw. im Dry Run nur anzeigen
+          print(f"\nTags to delete: {len(delete_tags)}")
+
+          for name in delete_tags:
+              print(f"  DELETE: {name}")
+
+              if DRY_RUN:
+                  continue
+
+              delete_url = (
+                  f"{API_URL}/tags/{quote(name, safe='')}"
+              )
+
+              response = session.delete(delete_url, timeout=30)
+              response.raise_for_status()
+
+              print(f"    Deleted: HTTP {response.status_code}")
+
+          if DRY_RUN:
+              print("\nDRY RUN: No tags were deleted.")
+          else:
+              print("\nCleanup completed successfully.")
+
+          PY
