@@ -31,7 +31,7 @@ jobs:
     steps:
       # Get repository code
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       # Set up QEMU for multi-platform builds
       - name: Set up QEMU
