@@ -1,4 +1,4 @@
-FROM php:8.3-cli-trixie
+FROM php:8.4-cli-trixie
 
 LABEL maintainer="Jens Dutzi <jens.dutzi@tf-network.de>"
 
@@ -6,10 +6,6 @@ LABEL maintainer="Jens Dutzi <jens.dutzi@tf-network.de>"
 ENV WORKDIR=/home/workspace
 WORKDIR ${WORKDIR}
 VOLUME ${WORKDIR}
-
-#
-# installing needed extra-libs etc.
-#
 
 #
 # installing needed extra-libs etc.
