@@ -14,6 +14,8 @@ bz2, calendar, Core, ctype, curl, date, dom, exif, fileinfo, filter, ftp, gd, ha
 #### PHP-Extensions:
 - [Xdebug](https://xdebug.org)
 - [Composer](https://getcomposer.org)
+
+#### Per composer.json nachinstallierbar (muss über die composer.json via require-dev bei Bedarf im zu prüfenden Projekt hinzugefügt werden):
 - [PHPUnit](https://phpunit.de)
 - [phpcs](https://github.com/PHPCSStandards/PHP_CodeSniffer)
 - [phpmd](https://phpmd.org)
