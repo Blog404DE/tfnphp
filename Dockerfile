@@ -1,4 +1,4 @@
-FROM php:8.3-cli-trixie
+FROM php:8.6-cli-trixie
 
 LABEL maintainer="Jens Dutzi <jens.dutzi@tf-network.de>"
 
